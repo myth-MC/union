@@ -26,7 +26,7 @@ final class TransferTransactionImpl extends TransactionImpl implements TransferT
 
         private final Account<?> toAccount;
 
-        protected Builder(@NotNull Account<?> toAccount, @NotNull Account<?> account, @NotNull BigDecimal amount, @NotNull Currency currency) {
+        Builder(@NotNull Account<?> toAccount, @NotNull Account<?> account, @NotNull BigDecimal amount, @NotNull Currency currency) {
             super(account, amount, currency);
             this.toAccount = toAccount;
         }

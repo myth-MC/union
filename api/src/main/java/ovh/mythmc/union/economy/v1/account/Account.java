@@ -53,12 +53,6 @@ public sealed interface Account<I> extends Identified<I> permits UniqueAccount, 
         return transfer(account, defaultCurrency(), amount);
     }
 
-    @NotNull TransactionResult set(@NotNull Currency currency, @NotNull BigDecimal amount);
-
-    default @NotNull TransactionResult set(@NotNull BigDecimal amount) {
-        return set(defaultCurrency(), amount);
-    }
-
     default boolean has(@NotNull Currency currency, @NotNull BigDecimal amount) {
         return this.balance(currency).compareTo(amount) >= 0;
     }

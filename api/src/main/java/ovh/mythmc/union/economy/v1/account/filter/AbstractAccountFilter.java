@@ -46,7 +46,7 @@ abstract class AbstractAccountFilter<T extends AccountFilter<T, A, I>, A extends
     @Override
     public @NotNull Optional<A> identifier(@NotNull I identifier) {
         return this.accounts().stream()
-            .filter(account -> identifier.equals(identifier))
+            .filter(account -> account.identifier().equals(identifier))
             .findAny();
     }
 

@@ -18,15 +18,10 @@ final class PermissionGroupImpl implements PermissionGroup {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == this)
-            return true;
-
-        if (!(obj instanceof PermissionGroupImpl))
-            return false;
-
-        PermissionGroupImpl permissionGroupImpl = (PermissionGroupImpl) obj;
-        return Objects.equals(this.identifier, permissionGroupImpl.identifier);
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+        PermissionGroupImpl that = (PermissionGroupImpl) object;
+        return Objects.equals(identifier, that.identifier);
     }
 
     @Override

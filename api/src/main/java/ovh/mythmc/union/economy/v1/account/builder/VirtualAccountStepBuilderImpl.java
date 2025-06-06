@@ -60,15 +60,10 @@ final class VirtualAccountStepBuilderImpl extends AbstractAccountStepBuilder<Vir
                     @NotNull BigDecimal amount) {
                 return transferFunction.apply(Transaction.transfer(this, account, amount, currency));
             }
-
-            @Override
-            public @NotNull TransactionResult set(@NotNull Currency currency, @NotNull BigDecimal amount) {
-                return null;
-            }
             
         };
 
-        return Optional.ofNullable(account);
+        return Optional.of(account);
     }
     
 }

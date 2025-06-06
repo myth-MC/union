@@ -16,7 +16,7 @@ final class BankAccountOptionsBuilderImpl implements BankAccountOptionsBuilder {
 
     private UUID owner;
 
-    private Set<UUID> members = new HashSet<>();
+    private final Set<UUID> members = new HashSet<>();
 
     @Override
     public @NotNull AccountOptionsBuilder<BankAccountOptions> worldName(String worldName) {

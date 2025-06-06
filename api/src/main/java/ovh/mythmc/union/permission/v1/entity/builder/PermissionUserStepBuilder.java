@@ -21,6 +21,10 @@ import ovh.mythmc.union.util.Buildable;
 @Experimental
 public interface PermissionUserStepBuilder {
 
+    static @NotNull IdentifierStep builder() {
+        return new PermissionUserStepBuilderImpl();
+    }
+
     interface IdentifierStep {
 
         @NotNull HasStep identifier(@NotNull Supplier<UUID> identifier);

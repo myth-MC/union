@@ -18,15 +18,10 @@ final class PermissionNodeImpl implements PermissionNode {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == this)
-            return true;
-
-        if (!(obj instanceof PermissionNodeImpl))
-            return false;
-
-        PermissionNodeImpl permissionNodeImpl = (PermissionNodeImpl) obj;
-        return Objects.equals(this.identifier, permissionNodeImpl.identifier);
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+        PermissionNodeImpl that = (PermissionNodeImpl) object;
+        return Objects.equals(identifier, that.identifier);
     }
 
     @Override

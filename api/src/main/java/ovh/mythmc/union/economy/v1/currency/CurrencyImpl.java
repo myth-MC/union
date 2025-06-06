@@ -72,22 +72,10 @@ final class CurrencyImpl implements Currency {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == this)
-            return true;
-
-        if (!(obj instanceof CurrencyImpl))
-            return false;
-
-        CurrencyImpl currencyImpl = (CurrencyImpl) obj;
-
-        return Objects.equals(this.fractionalDigits, currencyImpl.fractionalDigits)
-            && Objects.equals(this.name, currencyImpl.name)
-            && Objects.equals(this.displayNameSingular, currencyImpl.displayNameSingular)
-            && Objects.equals(this.displayNamePlural, currencyImpl.displayNamePlural)
-            && Objects.equals(this.formatter, currencyImpl.formatter)
-            && Objects.equals(this.symbol, currencyImpl.symbol)
-            && Objects.equals(this.worldName, currencyImpl.worldName);
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+        CurrencyImpl currency = (CurrencyImpl) object;
+        return fractionalDigits == currency.fractionalDigits && Objects.equals(name, currency.name) && Objects.equals(displayNameSingular, currency.displayNameSingular) && Objects.equals(displayNamePlural, currency.displayNamePlural) && Objects.equals(formatter, currency.formatter) && Objects.equals(symbol, currency.symbol) && Objects.equals(worldName, currency.worldName);
     }
 
     @Override

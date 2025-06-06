@@ -65,7 +65,7 @@ public sealed interface TransactionResult permits TransactionResultImpl {
         NO_FUNDS,
         NO_SPACE,
         FAILURE,
-        SUCCESS;
+        SUCCESS
         
     }
 

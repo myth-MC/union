@@ -9,15 +9,6 @@ import org.jetbrains.annotations.NotNull;
 
 import net.kyori.adventure.text.Component;
 import ovh.mythmc.union.economy.v1.account.Account;
-import ovh.mythmc.union.economy.v1.account.builder.AccountStepBuilder.BuildStep;
-import ovh.mythmc.union.economy.v1.account.builder.AccountStepBuilder.CurrenciesStep;
-import ovh.mythmc.union.economy.v1.account.builder.AccountStepBuilder.DefaultCurrencyStep;
-import ovh.mythmc.union.economy.v1.account.builder.AccountStepBuilder.DepositStep;
-import ovh.mythmc.union.economy.v1.account.builder.AccountStepBuilder.DisplayNameStep;
-import ovh.mythmc.union.economy.v1.account.builder.AccountStepBuilder.IdentifierStep;
-import ovh.mythmc.union.economy.v1.account.builder.AccountStepBuilder.OptionsStep;
-import ovh.mythmc.union.economy.v1.account.builder.AccountStepBuilder.TransferStep;
-import ovh.mythmc.union.economy.v1.account.builder.AccountStepBuilder.WithdrawStep;
 import ovh.mythmc.union.economy.v1.account.option.AccountOptions;
 import ovh.mythmc.union.economy.v1.currency.Currency;
 import ovh.mythmc.union.economy.v1.transaction.Transaction;
@@ -26,15 +17,15 @@ import ovh.mythmc.union.economy.v1.transaction.result.TransactionResult;
 
 abstract class AbstractAccountStepBuilder<A extends Account<I>, I> 
     implements AccountStepBuilder,
-               IdentifierStep<A, I>,
-               DisplayNameStep<A, I>, 
-               DefaultCurrencyStep<A, I>, 
-               CurrenciesStep<A, I>,
-               OptionsStep<A, I>,
-               DepositStep<A, I>,
-               WithdrawStep<A, I>,
-               TransferStep<A, I>,
-               BuildStep<A, I> 
+               AccountStepBuilder.IdentifierStep<A, I>,
+               AccountStepBuilder.DisplayNameStep<A, I>,
+               AccountStepBuilder.DefaultCurrencyStep<A, I>,
+               AccountStepBuilder.CurrenciesStep<A, I>,
+               AccountStepBuilder.OptionsStep<A, I>,
+               AccountStepBuilder.DepositStep<A, I>,
+               AccountStepBuilder.WithdrawStep<A, I>,
+               AccountStepBuilder.TransferStep<A, I>,
+               AccountStepBuilder.BuildStep<A, I>
 {
 
     protected I identifier;
@@ -44,8 +35,6 @@ abstract class AbstractAccountStepBuilder<A extends Account<I>, I>
     protected Currency defaultCurrency;
 
     protected Supplier<Map<Currency, BigDecimal>> currenciesSupplier;
-
-    protected Function<Currency, BigDecimal> balanceFunction;
 
     protected AccountOptions options;
 

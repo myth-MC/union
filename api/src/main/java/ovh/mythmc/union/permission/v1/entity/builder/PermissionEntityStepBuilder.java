@@ -15,6 +15,10 @@ import ovh.mythmc.union.util.Buildable;
 @Experimental
 public interface PermissionEntityStepBuilder {
 
+    static @NotNull HasStep builder() {
+        return new PermissionEntityStepBuilderImpl();
+    }
+
     interface HasStep {
 
         @NotNull AddStep has(@NotNull BiFunction<@NotNull PermissionNode, @NotNull PermissionQueryOptions, @NotNull PermissionNodeResult> has);
