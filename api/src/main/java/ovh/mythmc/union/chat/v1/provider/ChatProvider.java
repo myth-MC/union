@@ -1,13 +1,13 @@
 package ovh.mythmc.union.chat.v1.provider;
 
-import java.util.UUID;
-
 import org.jetbrains.annotations.NotNull;
+import ovh.mythmc.union.chat.v1.entity.ChatUser;
 
-import net.kyori.adventure.text.Component;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface ChatProvider {
 
-    @NotNull Component prefix(@NotNull UUID uuid);
+    @NotNull Optional<ChatUser> user(@NotNull UUID uuid);
     
 }
