@@ -2,8 +2,14 @@ package ovh.mythmc.union.util;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
+
 public interface Buildable<T> {
 
-    @NotNull T build();
+    T build();
+
+    default @NotNull Optional<T> buildOptional() {
+        return Optional.of(build());
+    }
     
 }
