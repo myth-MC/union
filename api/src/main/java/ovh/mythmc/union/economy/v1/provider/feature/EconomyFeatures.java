@@ -22,8 +22,8 @@ public sealed interface EconomyFeatures permits EconomyFeaturesImpl {
         return has(EconomyFeature.ASYNCHRONOUS_TRANSACTIONS);
     }
 
-    default boolean bankAccounts() {
-        return has(EconomyFeature.BANK_ACCOUNTS);
+    default boolean sharedAccounts() {
+        return has(EconomyFeature.SHARED_ACCOUNTS);
     }
 
     default boolean multipleCurrencies() {
@@ -31,8 +31,8 @@ public sealed interface EconomyFeatures permits EconomyFeaturesImpl {
     }
 
     @Experimental
-    default boolean perWorldEconomy() {
-        return has(EconomyFeature.PER_WORLD_ECONOMY);
+    default boolean multipleWorlds() {
+        return has(EconomyFeature.MULTIPLE_WORLDS);
     }
 
     default boolean virtualAccounts() {

@@ -9,15 +9,15 @@ import org.jetbrains.annotations.NotNull;
 
 import net.kyori.adventure.text.Component;
 import ovh.mythmc.union.economy.v1.account.Account;
-import ovh.mythmc.union.economy.v1.account.BankAccount;
+import ovh.mythmc.union.economy.v1.account.SharedAccount;
 import ovh.mythmc.union.economy.v1.account.UniqueAccount;
 import ovh.mythmc.union.economy.v1.account.VirtualAccount;
 import ovh.mythmc.union.economy.v1.currency.Currency;
 
 public interface AccountFilter<T extends AccountFilter<T, A, I>, A extends Account<I>, I> {
 
-    static BankAccountFilter bank(@NotNull Set<BankAccount> accounts) {
-        return new BankAccountFilterImpl(accounts);
+    static SharedAccountFilter shared(@NotNull Set<SharedAccount> accounts) {
+        return new SharedAccountFilterImpl(accounts);
     }
 
     static AccountFilter<?, UniqueAccount, UUID> unique(@NotNull Set<UniqueAccount> accounts) {

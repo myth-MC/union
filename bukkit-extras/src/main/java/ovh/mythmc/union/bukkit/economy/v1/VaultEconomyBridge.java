@@ -17,7 +17,7 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
 import ovh.mythmc.union.economy.v1.account.Account;
-import ovh.mythmc.union.economy.v1.account.BankAccount;
+import ovh.mythmc.union.economy.v1.account.SharedAccount;
 import ovh.mythmc.union.economy.v1.account.UniqueAccount;
 import ovh.mythmc.union.economy.v1.account.option.AccountOptions;
 import ovh.mythmc.union.economy.v1.provider.EconomyProvider;
@@ -48,16 +48,16 @@ public final class VaultEconomyBridge implements Economy, EconomyBridge {
     @Override
     public EconomyResponse bankBalance(String name) {
         // Requires Bank accounts support
-        if (!this.economyProvider.features().bankAccounts()) {
+        if (!this.economyProvider.features().sharedAccounts()) {
             return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "Bank accounts aren't supported");
         }
 
         // Check if bank account exists
-        if (!this.economyProvider.bankAccountExists(name)) {
+        if (!this.economyProvider.sharedAccountExists(name)) {
             return new EconomyResponse(0, 0, ResponseType.FAILURE, "Account " + name + " doesn't exist");
         }
 
-        final Optional<BankAccount> optionalAccount = this.economyProvider.findBankAccount(name);
+        final Optional<SharedAccount> optionalAccount = this.economyProvider.findSharedAccount(name);
         if (optionalAccount.isEmpty()) {
             return new EconomyResponse(0, 0, ResponseType.FAILURE, "Unknown error while finding account " + name);
         }
@@ -68,16 +68,16 @@ public final class VaultEconomyBridge implements Economy, EconomyBridge {
     @Override
     public EconomyResponse bankDeposit(String name, double amount) {
         // Requires Bank accounts support
-        if (!this.economyProvider.features().bankAccounts()) {
+        if (!this.economyProvider.features().sharedAccounts()) {
             return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "Bank accounts aren't supported");
         }
 
         // Check if bank account exists
-        if (!this.economyProvider.bankAccountExists(name)) {
+        if (!this.economyProvider.sharedAccountExists(name)) {
             return new EconomyResponse(0, 0, ResponseType.FAILURE, "Account " + name + " doesn't exist");
         }
 
-        final Optional<BankAccount> optionalAccount = this.economyProvider.findBankAccount(name);
+        final Optional<SharedAccount> optionalAccount = this.economyProvider.findSharedAccount(name);
         if (optionalAccount.isEmpty()) {
             return new EconomyResponse(0, 0, ResponseType.FAILURE, "Unknown error while finding account " + name);
         }
@@ -93,16 +93,16 @@ public final class VaultEconomyBridge implements Economy, EconomyBridge {
     @Override
     public EconomyResponse bankHas(String name, double amount) {
         // Requires Bank accounts support
-        if (!this.economyProvider.features().bankAccounts()) {
+        if (!this.economyProvider.features().sharedAccounts()) {
             return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "Bank accounts aren't supported");
         }
 
         // Check if bank account exists
-        if (!this.economyProvider.bankAccountExists(name)) {
+        if (!this.economyProvider.sharedAccountExists(name)) {
             return new EconomyResponse(0, 0, ResponseType.FAILURE, "Account " + name + " doesn't exist");
         }
 
-        final Optional<BankAccount> optionalAccount = this.economyProvider.findBankAccount(name);
+        final Optional<SharedAccount> optionalAccount = this.economyProvider.findSharedAccount(name);
         if (optionalAccount.isEmpty()) {
             return new EconomyResponse(0, 0, ResponseType.FAILURE, "Unknown error while finding account " + name);
         }
@@ -116,16 +116,16 @@ public final class VaultEconomyBridge implements Economy, EconomyBridge {
     @Override
     public EconomyResponse bankWithdraw(String name, double amount) {
         // Requires Bank accounts support
-        if (!this.economyProvider.features().bankAccounts()) {
+        if (!this.economyProvider.features().sharedAccounts()) {
             return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "Bank accounts aren't supported");
         }
 
         // Check if bank account exists
-        if (!this.economyProvider.bankAccountExists(name)) {
+        if (!this.economyProvider.sharedAccountExists(name)) {
             return new EconomyResponse(0, 0, ResponseType.FAILURE, "Account " + name + " doesn't exist");
         }
 
-        final Optional<BankAccount> optionalAccount = this.economyProvider.findBankAccount(name);
+        final Optional<SharedAccount> optionalAccount = this.economyProvider.findSharedAccount(name);
         if (optionalAccount.isEmpty()) {
             return new EconomyResponse(0, 0, ResponseType.FAILURE, "Unknown error while finding account " + name);
         }
@@ -146,16 +146,16 @@ public final class VaultEconomyBridge implements Economy, EconomyBridge {
     @Override
     public EconomyResponse createBank(String name, OfflinePlayer owner) {
         // Requires Bank accounts support
-        if (!this.economyProvider.features().bankAccounts()) {
+        if (!this.economyProvider.features().sharedAccounts()) {
             return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "Bank accounts aren't supported");
         }
 
         // Check if bank account exists
-        if (this.economyProvider.bankAccountExists(name)) {
+        if (this.economyProvider.sharedAccountExists(name)) {
             return new EconomyResponse(0, 0, ResponseType.FAILURE, "Account " + name + " already exists");
         }
 
-        final var result = this.economyProvider.createBankAccount(name);
+        final var result = this.economyProvider.createSharedAccount(name);
         return new EconomyResponse(0, result.account().get().balance().doubleValue(), ResponseType.SUCCESS, null);
     }
 
@@ -181,7 +181,7 @@ public final class VaultEconomyBridge implements Economy, EconomyBridge {
 
     @Override
     public boolean createPlayerAccount(OfflinePlayer player, String worldName) {
-        if (this.economyProvider.features().perWorldEconomy()) {
+        if (this.economyProvider.features().multipleWorlds()) {
             final var options = AccountOptions.builder()
                 .worldName(worldName)
                 .build();
@@ -205,16 +205,16 @@ public final class VaultEconomyBridge implements Economy, EconomyBridge {
     @Override
     public EconomyResponse deleteBank(String name) {
         // Requires Bank accounts support
-        if (!this.economyProvider.features().bankAccounts()) {
+        if (!this.economyProvider.features().sharedAccounts()) {
             return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "Bank accounts aren't supported");
         }
 
         // Check if bank account exists
-        if (!this.economyProvider.bankAccountExists(name)) {
+        if (!this.economyProvider.sharedAccountExists(name)) {
             return new EconomyResponse(0, 0, ResponseType.FAILURE, "Account " + name + " doesn't exist");
         }
 
-        final var result = this.economyProvider.deleteBankAccount(name);
+        final var result = this.economyProvider.deleteSharedAccount(name);
         if (!result.isSuccess()) {
             return new EconomyResponse(0, 0, ResponseType.FAILURE, "Unknown error while deleting bank account " + name);
         }
@@ -290,8 +290,8 @@ public final class VaultEconomyBridge implements Economy, EconomyBridge {
 
     @Override
     public List<String> getBanks() {
-        return this.economyProvider.bankAccounts().stream()
-            .map(BankAccount::identifier)
+        return this.economyProvider.sharedAccounts().stream()
+            .map(SharedAccount::identifier)
             .toList();
     }
 
@@ -351,7 +351,7 @@ public final class VaultEconomyBridge implements Economy, EconomyBridge {
 
     @Override
     public boolean hasBankSupport() {
-        return this.economyProvider.features().bankAccounts();
+        return this.economyProvider.features().sharedAccounts();
     }
 
     @Override
@@ -362,16 +362,16 @@ public final class VaultEconomyBridge implements Economy, EconomyBridge {
     @Override
     public EconomyResponse isBankMember(String name, OfflinePlayer player) {
         // Requires Bank accounts support
-        if (!this.economyProvider.features().bankAccounts()) {
+        if (!this.economyProvider.features().sharedAccounts()) {
             return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "Bank accounts aren't supported");
         }
 
         // Check if bank account exists
-        if (!this.economyProvider.bankAccountExists(name)) {
+        if (!this.economyProvider.sharedAccountExists(name)) {
             return new EconomyResponse(0, 0, ResponseType.FAILURE, "Account " + name + " doesn't exist");
         }
 
-        final BankAccount account = this.economyProvider.findBankAccount(name).get();
+        final SharedAccount account = this.economyProvider.findSharedAccount(name).get();
         if (!account.members().contains(player.getUniqueId())) {
             return new EconomyResponse(0, 0, ResponseType.FAILURE, player.getName() + " isn't a member of " + name);
         }
@@ -387,16 +387,16 @@ public final class VaultEconomyBridge implements Economy, EconomyBridge {
     @Override
     public EconomyResponse isBankOwner(String name, OfflinePlayer player) {
         // Requires Bank accounts support
-        if (!this.economyProvider.features().bankAccounts()) {
+        if (!this.economyProvider.features().sharedAccounts()) {
             return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "Bank accounts aren't supported");
         }
 
         // Check if bank account exists
-        if (!this.economyProvider.bankAccountExists(name)) {
+        if (!this.economyProvider.sharedAccountExists(name)) {
             return new EconomyResponse(0, 0, ResponseType.FAILURE, "Account " + name + " doesn't exist");
         }
 
-        final BankAccount account = this.economyProvider.findBankAccount(name).get();
+        final SharedAccount account = this.economyProvider.findSharedAccount(name).get();
         if (!account.members().contains(player.getUniqueId())) {
             return new EconomyResponse(0, 0, ResponseType.FAILURE, player.getName() + " isn't a member of " + name);
         }

@@ -7,12 +7,12 @@ import java.util.UUID;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.ApiStatus.Experimental;
 
-import ovh.mythmc.union.economy.v1.account.option.BankAccountOptions;
+import ovh.mythmc.union.economy.v1.account.option.SharedAccountOptions;
 
 @Experimental
-public interface BankAccount extends VirtualAccount {
+public interface SharedAccount extends VirtualAccount {
 
-    @NotNull BankAccountOptions options();
+    @NotNull SharedAccountOptions options();
 
     @NotNull Optional<UUID> owner();
 

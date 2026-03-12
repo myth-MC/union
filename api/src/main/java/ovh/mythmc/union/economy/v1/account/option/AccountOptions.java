@@ -4,9 +4,9 @@ import java.util.Optional;
 
 import org.jetbrains.annotations.NotNull;
 
-import ovh.mythmc.union.economy.v1.account.option.BankAccountOptions.BankAccountOptionsBuilder;
+import ovh.mythmc.union.economy.v1.account.option.SharedAccountOptions.SharedAccountOptionsBuilder;
 
-public sealed interface AccountOptions permits AccountOptionsImpl, BankAccountOptions {
+public sealed interface AccountOptions permits AccountOptionsImpl, SharedAccountOptions {
 
     static AccountOptions empty() {
         return builder().build();
@@ -18,7 +18,7 @@ public sealed interface AccountOptions permits AccountOptionsImpl, BankAccountOp
 
     @NotNull Optional<String> worldName();
 
-    sealed interface AccountOptionsBuilder<T extends AccountOptions> permits AccountOptionsBuilderImpl, BankAccountOptionsBuilder {
+    sealed interface AccountOptionsBuilder<T extends AccountOptions> permits AccountOptionsBuilderImpl, SharedAccountOptionsBuilder {
 
         @NotNull AccountOptionsBuilder<T> worldName(String worldName);
     

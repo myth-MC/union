@@ -6,13 +6,13 @@ import java.util.UUID;
 
 import org.jetbrains.annotations.NotNull;
 
-final class BankAccountOptionsImpl extends AccountOptionsImpl implements BankAccountOptions {
+final class SharedAccountOptionsImpl extends AccountOptionsImpl implements SharedAccountOptions {
 
     private final UUID owner;
 
     private final Set<UUID> members;
 
-    BankAccountOptionsImpl(String worldName, UUID owner, Set<UUID> members) {
+    SharedAccountOptionsImpl(String worldName, UUID owner, Set<UUID> members) {
         super(worldName);
         this.owner = owner;
         this.members = members;

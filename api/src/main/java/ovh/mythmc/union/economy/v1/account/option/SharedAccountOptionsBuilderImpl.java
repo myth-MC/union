@@ -8,9 +8,9 @@ import java.util.UUID;
 import org.jetbrains.annotations.NotNull;
 
 import ovh.mythmc.union.economy.v1.account.option.AccountOptions.AccountOptionsBuilder;
-import ovh.mythmc.union.economy.v1.account.option.BankAccountOptions.BankAccountOptionsBuilder;
+import ovh.mythmc.union.economy.v1.account.option.SharedAccountOptions.SharedAccountOptionsBuilder;
 
-final class BankAccountOptionsBuilderImpl implements BankAccountOptionsBuilder {
+final class SharedAccountOptionsBuilderImpl implements SharedAccountOptionsBuilder {
 
     private String worldName;
 
@@ -19,26 +19,26 @@ final class BankAccountOptionsBuilderImpl implements BankAccountOptionsBuilder {
     private final Set<UUID> members = new HashSet<>();
 
     @Override
-    public @NotNull AccountOptionsBuilder<BankAccountOptions> worldName(String worldName) {
+    public @NotNull AccountOptionsBuilder<SharedAccountOptions> worldName(String worldName) {
         this.worldName = worldName;
         return this;
     }
 
     @Override
-    public @NotNull BankAccountOptionsBuilder owner(UUID owner) {
+    public @NotNull SharedAccountOptionsBuilder owner(UUID owner) {
         this.owner = owner;
         return this;
     }
 
     @Override
-    public @NotNull BankAccountOptionsBuilder members(@NotNull Collection<UUID> members) {
+    public @NotNull SharedAccountOptionsBuilder members(@NotNull Collection<UUID> members) {
         this.members.addAll(members);
         return this;
     }
 
     @Override
-    public @NotNull BankAccountOptions build() {
-        return new BankAccountOptionsImpl(worldName, owner, members);
+    public @NotNull SharedAccountOptions build() {
+        return new SharedAccountOptionsImpl(worldName, owner, members);
     }
     
 }

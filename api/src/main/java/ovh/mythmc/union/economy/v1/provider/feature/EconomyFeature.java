@@ -5,9 +5,9 @@ import org.jetbrains.annotations.ApiStatus.Experimental;
 public enum EconomyFeature {
 
     ASYNCHRONOUS_TRANSACTIONS,
-    BANK_ACCOUNTS,
+    SHARED_ACCOUNTS,
     MULTIPLE_CURRENCIES,
-    @Experimental PER_WORLD_ECONOMY,
+    @Experimental MULTIPLE_WORLDS,
     VIRTUAL_ACCOUNTS
     
 }

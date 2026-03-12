@@ -8,13 +8,13 @@ import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
 
 import ovh.mythmc.union.economy.v1.account.Account;
-import ovh.mythmc.union.economy.v1.account.BankAccount;
+import ovh.mythmc.union.economy.v1.account.SharedAccount;
 import ovh.mythmc.union.economy.v1.account.UniqueAccount;
 import ovh.mythmc.union.economy.v1.account.VirtualAccount;
 import ovh.mythmc.union.economy.v1.account.filter.AccountFilter;
-import ovh.mythmc.union.economy.v1.account.filter.BankAccountFilter;
+import ovh.mythmc.union.economy.v1.account.filter.SharedAccountFilter;
 import ovh.mythmc.union.economy.v1.account.option.AccountOptions;
-import ovh.mythmc.union.economy.v1.account.option.BankAccountOptions;
+import ovh.mythmc.union.economy.v1.account.option.SharedAccountOptions;
 import ovh.mythmc.union.economy.v1.currency.Currency;
 import ovh.mythmc.union.economy.v1.provider.feature.EconomyFeatures;
 import ovh.mythmc.union.economy.v1.provider.result.AccountLifecycleResult;
@@ -28,13 +28,13 @@ public interface EconomyProvider extends Provider<EconomyFeatures> {
 
     @NotNull Set<Account<?>> accounts();
     
-    @NotNull AccountLifecycleResult<BankAccount, String> createBankAccount(@NotNull String identifier, @NotNull BankAccountOptions options);
+    @NotNull AccountLifecycleResult<SharedAccount, String> createSharedAccount(@NotNull String identifier, @NotNull SharedAccountOptions options);
 
     @NotNull AccountLifecycleResult<UniqueAccount, UUID> createUniqueAccount(@NotNull UUID identifier, @NotNull AccountOptions options);
 
     @NotNull AccountLifecycleResult<VirtualAccount, String> createVirtualAccount(@NotNull String identifier, @NotNull AccountOptions options);
 
-    @NotNull AccountLifecycleResult<BankAccount, String> deleteBankAccount(@NotNull String identifier);
+    @NotNull AccountLifecycleResult<SharedAccount, String> deleteSharedAccount(@NotNull String identifier);
 
     @NotNull AccountLifecycleResult<UniqueAccount, UUID> deleteUniqueAccount(@NotNull UUID uuid);
 
@@ -44,8 +44,8 @@ public interface EconomyProvider extends Provider<EconomyFeatures> {
      * Helper methods
      */
 
-    default @NotNull AccountLifecycleResult<BankAccount, String> createBankAccount(@NotNull String identifier) {
-        return createBankAccount(identifier, BankAccountOptions.empty());
+    default @NotNull AccountLifecycleResult<SharedAccount, String> createSharedAccount(@NotNull String identifier) {
+        return createSharedAccount(identifier, SharedAccountOptions.empty());
     }
 
     default @NotNull AccountLifecycleResult<UniqueAccount, UUID> createUniqueAccount(@NotNull UUID identifier) {
@@ -60,8 +60,8 @@ public interface EconomyProvider extends Provider<EconomyFeatures> {
         return currencies().stream().filter(currency -> currency.name().equalsIgnoreCase(currencyName)).findAny();
     }
 
-    default BankAccountFilter filterBankAccounts() {
-        return AccountFilter.bank(bankAccounts());
+    default SharedAccountFilter filterSharedAccounts() {
+        return AccountFilter.shared(sharedAccounts());
     }
 
     default AccountFilter<?, UniqueAccount, UUID> filterUniqueAccounts() {
@@ -80,8 +80,8 @@ public interface EconomyProvider extends Provider<EconomyFeatures> {
             .findAny();
     }
 
-    default Optional<BankAccount> findBankAccount(@NotNull String identifier) {
-        return findAccount(BankAccount.class, identifier);
+    default Optional<SharedAccount> findSharedAccount(@NotNull String identifier) {
+        return findAccount(SharedAccount.class, identifier);
     }
 
     default Optional<UniqueAccount> findUniqueAccount(@NotNull UUID identifier) {
@@ -104,6 +104,10 @@ public interface EconomyProvider extends Provider<EconomyFeatures> {
             .collect(Collectors.toSet());
     }
 
+    default Set<SharedAccount> sharedAccounts() {
+        return accounts(SharedAccount.class);
+    }
+
     default Set<UniqueAccount> uniqueAccounts() {
         return accounts(UniqueAccount.class);
     }
@@ -112,8 +116,8 @@ public interface EconomyProvider extends Provider<EconomyFeatures> {
         return accounts(VirtualAccount.class);
     }
 
-    default Set<BankAccount> bankAccounts() {
-        return accounts(BankAccount.class);
+    default boolean sharedAccountExists(@NotNull String identifier) {
+        return accountExists(SharedAccount.class, identifier);
     }
 
     default boolean uniqueAccountExists(@NotNull UUID uniqueId) {
@@ -122,10 +126,6 @@ public interface EconomyProvider extends Provider<EconomyFeatures> {
 
     default boolean virtualAccountExists(@NotNull String identifier) {
         return accountExists(VirtualAccount.class, identifier);
-    }
-
-    default boolean bankAccountExists(@NotNull String identifier) {
-        return accountExists(BankAccount.class, identifier);
     }
 
 }
