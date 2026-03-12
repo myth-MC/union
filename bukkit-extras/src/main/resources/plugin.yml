@@ -1,0 +1,7 @@
+name: union-api
+authors: [ mythMC, U8092 ]
+version: '$version'
+api-version: 1.13
+
+main: ovh.mythmc.union.bukkit.UnionBukkit
+softdepend: [ Vault ]

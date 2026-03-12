@@ -29,7 +29,7 @@ public final class VaultEconomyBridge implements Economy, EconomyBridge {
 
     private final JavaPlugin plugin;
 
-    private VaultEconomyBridge(@NotNull EconomyProvider economyProvider, @NotNull JavaPlugin plugin) {
+    public VaultEconomyBridge(@NotNull EconomyProvider economyProvider, @NotNull JavaPlugin plugin) {
         this.economyProvider = economyProvider;
         this.plugin = plugin;
     }
