@@ -1,5 +1,6 @@
 package ovh.mythmc.union.economy.v1.provider;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -24,10 +25,10 @@ public interface EconomyProvider extends Provider<EconomyFeatures> {
 
     @NotNull Currency defaultCurrency();
 
-    @NotNull Set<Currency> currencies();
+    @NotNull Map<String, Currency> currencies();
 
     @NotNull Set<Account<?>> accounts();
-    
+
     @NotNull AccountLifecycleResult<SharedAccount, String> createSharedAccount(@NotNull String identifier, @NotNull SharedAccountOptions options);
 
     @NotNull AccountLifecycleResult<UniqueAccount, UUID> createUniqueAccount(@NotNull UUID identifier, @NotNull AccountOptions options);
@@ -57,7 +58,7 @@ public interface EconomyProvider extends Provider<EconomyFeatures> {
     }
 
     default Optional<Currency> currencyByName(@NotNull String currencyName) {
-        return currencies().stream().filter(currency -> currency.name().equalsIgnoreCase(currencyName)).findAny();
+        return Optional.ofNullable(currencies().get(currencyName));
     }
 
     default SharedAccountFilter filterSharedAccounts() {
